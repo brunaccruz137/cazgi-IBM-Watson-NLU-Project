@@ -40,8 +40,13 @@ class App extends React.Component {
   sendForSentimentAnalysis = () => {
     this.setState({sentiment:true});
     let url = ".";
-    let mode = this.state.mode
-    url = url+"/" + mode + "/sentiment?"+ mode + "="+document.getElementById("textinput").value;
+    let mode = this.state.mode;
+    let text = document.getElementById("textinput").value;
+    if (text.length < 20) {
+        alert("Please type in at least 20 characters");
+        return;
+    }
+    url = url+"/" + mode + "/sentiment?"+ mode + "="+text;
 
     fetch(url).then((response)=>{
         response.json().then((data)=>{
